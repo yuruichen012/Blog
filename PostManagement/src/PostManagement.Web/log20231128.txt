@@ -1,0 +1,54 @@
+2023-11-28 01:58:19.486 +08:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-11-28 01:58:19.533 +08:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2023-11-28 01:58:19.569 +08:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Categories] (
+    [Id] bigint NOT NULL IDENTITY,
+    [ParentId] bigint NOT NULL,
+    [Name] nvarchar(20) NOT NULL,
+    CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED ([Id])
+);
+2023-11-28 01:58:20.991 +08:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-11-28 01:58:20.995 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-11-28 01:58:20.996 +08:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-11-28 01:58:21.002 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2023-11-28 01:58:21.004 +08:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2023-11-28 01:58:21.005 +08:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2023-11-28 01:58:21.009 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2023-11-28 01:58:21.018 +08:00 [INF] No migrations were applied. The database is already up to date.
+2023-11-28 01:58:22.634 +08:00 [INF] Now listening on: http://localhost:57679
+2023-11-28 01:58:22.636 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-11-28 01:58:22.639 +08:00 [INF] Hosting environment: Development
+2023-11-28 01:58:22.640 +08:00 [INF] Content root path: C:\Users\Yurui Chen\source\repos\Blog\PostManagement\src\PostManagement.Web
+2023-11-28 01:58:22.954 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:57679/swagger - null null
+2023-11-28 01:58:23.105 +08:00 [WRN] Failed to determine the https port for redirect.
+2023-11-28 01:58:23.129 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:57679/swagger - 404 0 null 180.1444ms
+2023-11-28 01:58:23.131 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57679/swagger, Response status code: 404
