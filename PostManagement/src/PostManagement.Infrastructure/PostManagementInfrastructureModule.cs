@@ -5,7 +5,7 @@ using MediatR;
 using MediatR.Pipeline;
 using PostManagement.Core;
 using PostManagement.Infrastructure.EntityFrameworkCore;
-using PostManagement.Infrastructure.EntityFrameworkCore.Data;
+using PostManagement.Infrastructure.EntityFrameworkCore.Initializers;
 using PostManagement.UseCases;
 using Shared.EntityFrameworkCore;
 using Module = Autofac.Module;
@@ -67,7 +67,7 @@ public class PostManagementInfrastructureModule : Module
 
     private void RegisterEF(ContainerBuilder builder)
     {
-        builder.RegisterType<PostManagementDbContext>().InstancePerLifetimeScope();
+        // builder.RegisterType<PostManagementDbContext>().InstancePerLifetimeScope();
 
         builder.RegisterType<PostManagementDbContextInitializer>()
             .As<IDbContextInitializer>()
@@ -108,10 +108,10 @@ public class PostManagementInfrastructureModule : Module
             typeof(INotificationHandler<>),
         };
 
+        var array = _assemblies.ToArray();
         foreach (var mediatrOpenType in mediatrOpenTypes)
         {
-            builder
-                .RegisterAssemblyTypes(_assemblies.ToArray())
+            builder.RegisterAssemblyTypes(array)
                 .AsClosedTypesOf(mediatrOpenType)
                 .AsImplementedInterfaces();
         }

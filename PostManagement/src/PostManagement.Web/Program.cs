@@ -24,7 +24,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 builder.Services.AddPostManagementDbContext(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
-// builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
     o.ShortSchemaNames = true;
@@ -59,8 +59,8 @@ else
     app.UseDefaultExceptionHandler(); // from FastEndpoints
     app.UseHsts();
 }
-// app.UseFastEndpoints();
-// app.UseSwaggerGen(); // FastEndpoints middleware
+app.UseFastEndpoints();
+app.UseSwaggerGen(); // FastEndpoints middleware
 
 app.UseHttpsRedirection();
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.EntityFrameworkCore;
 
-namespace PostManagement.Infrastructure.EntityFrameworkCore.Data;
+namespace PostManagement.Infrastructure.EntityFrameworkCore.Initializers;
 
 public class PostManagementDbContextInitializer(PostManagementDbContext context) : IDbContextInitializer
 {

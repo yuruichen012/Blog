@@ -19,7 +19,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared.EntityFrameworkCore\Shared.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.EntityFrameworkCore\Shared.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\PostManagement.Core\PostManagement.Core.csproj" />
     <ProjectReference Include="..\PostManagement.UseCases\PostManagement.UseCases.csproj" />
   </ItemGroup>

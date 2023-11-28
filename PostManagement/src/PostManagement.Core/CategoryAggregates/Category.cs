@@ -27,7 +27,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
     /// </summary>
     /// <param name="parentId">父节点</param>
     /// <param name="name">名称</param>
-    protected Category(uint parentId, string name)
+    public Category(uint parentId, string name)
     {
         ParentId = parentId;
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
