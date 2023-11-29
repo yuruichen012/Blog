@@ -6,6 +6,6 @@ public class AnyByIdSepc : Specification<Category>
 {
     public AnyByIdSepc(uint id)
     {
-        Query.Where(x => x.Id == id);
+        Query.Where(x => x.Id == id && x.DeletionStatus.MarkedForDeletion == false);
     }
 }

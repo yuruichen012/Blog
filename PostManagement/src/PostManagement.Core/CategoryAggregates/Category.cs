@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using PostManagement.Core.CategoryAggregates.Events;
 using PostManagement.Core.CategoryAggregates.Exceptions;
+using Shared.Ddd;
 
 namespace PostManagement.Core.CategoryAggregates;
 
@@ -10,6 +11,12 @@ namespace PostManagement.Core.CategoryAggregates;
 /// </summary>
 public class Category : EntityBase<uint>, IAggregateRoot
 {
+    /// <inheritdoc/>
+    public ConcurrencyStamp ConcurrencyStamp { get; private set; } = null!;
+
+    /// <inheritdoc/>
+    public DeletionStatus DeletionStatus { get; private set; } = null!;
+
     /// <summary>
     /// 父节点
     /// </summary>
@@ -31,8 +38,18 @@ public class Category : EntityBase<uint>, IAggregateRoot
     {
         ParentId = parentId;
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        ConcurrencyStamp = ConcurrencyStamp.Create();
+        DeletionStatus = DeletionStatus.Valid;
 
         RegisterDomainEvent(new CategoryCreatedEvent(parentId, name));
+    }
+
+    private void CheckSaved()
+    {
+        if (Id == default)
+        {
+            throw new CategoryNameChangedBeforeSaveException();
+        }
     }
 
     /// <summary>
@@ -41,13 +58,22 @@ public class Category : EntityBase<uint>, IAggregateRoot
     /// <param name="name">名称</param>
     public void SetName(string name)
     {
-        if (Id == default)
-        {
-            throw new CategoryNameChangedBeforePersistenceException();
-        }
+        CheckSaved();
 
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
 
         RegisterDomainEvent(new CategoryNameChangedEvent(Id, name));
+    }
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    public void Remove()
+    {
+        CheckSaved();
+
+        DeletionStatus = DeletionStatus.Invalid;
+
+        RegisterDomainEvent(new CategoryDeletedEvent(Id));
     }
 }

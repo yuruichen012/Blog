@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared.Ddd\Shared.Ddd.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.EntityFrameworkCore\Shared.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

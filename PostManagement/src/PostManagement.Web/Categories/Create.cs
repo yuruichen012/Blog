@@ -1,10 +1,11 @@
-﻿using FastEndpoints;
+﻿using Ardalis.Result;
+using FastEndpoints;
 using MediatR;
 using PostManagement.UseCases.Categories.Create;
 
 namespace PostManagement.Web.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, CreateCategoryResponse>
+public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<uint>>
 {
     public override void Configure()
     {
@@ -22,11 +23,6 @@ public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Create
 
     public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
     {
-        var result = await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct);
-        
-        if (result.IsSuccess)
-        {
-            Response = new CreateCategoryResponse(result.Value);
-        }
+        Response = await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct);
     }
 }

@@ -3,6 +3,6 @@
 /// <summary>
 /// 类别在持久化前发生变化异常
 /// </summary>
-public class CategoryChangedBeforePersistenceException : Exception
+public class CategoryChangedBeforeSaveException : Exception
 {
 }
