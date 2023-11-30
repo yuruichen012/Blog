@@ -73,6 +73,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
         CheckSaved();
 
         DeletionStatus = DeletionStatus.Invalid;
+        ConcurrencyStamp = ConcurrencyStamp.Create();
 
         RegisterDomainEvent(new CategoryDeletedEvent(Id));
     }
