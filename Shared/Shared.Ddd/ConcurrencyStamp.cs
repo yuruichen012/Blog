@@ -1,10 +1,12 @@
-﻿namespace Shared.Ddd
+﻿using Ardalis.SharedKernel;
+
+namespace Shared.Ddd
 {
     /// <summary>
     /// 并发戳
     /// </summary>
     /// <param name="token">标记</param>
-    public class ConcurrencyStamp(string token)
+    public class ConcurrencyStamp(string token) : ValueObject
     {
         private bool isNew = false;
 
@@ -19,6 +21,11 @@
 
             isNew = true;
             Token = Guid.NewGuid().ToString("N");
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Token;
         }
 
         /// <summary>
