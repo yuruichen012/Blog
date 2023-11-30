@@ -38,7 +38,6 @@ public class Category : EntityBase<uint>, IAggregateRoot
     {
         ParentId = parentId;
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        ConcurrencyStamp = ConcurrencyStamp.Create();
         DeletionStatus = DeletionStatus.Valid;
 
         RegisterDomainEvent(new CategoryCreatedEvent(parentId, name));
@@ -61,6 +60,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
         CheckSaved();
 
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        ConcurrencyStamp.Change();
 
         RegisterDomainEvent(new CategoryNameChangedEvent(Id, name));
     }
@@ -73,7 +73,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
         CheckSaved();
 
         DeletionStatus = DeletionStatus.Invalid;
-        ConcurrencyStamp = ConcurrencyStamp.Create();
+        ConcurrencyStamp.Change();
 
         RegisterDomainEvent(new CategoryDeletedEvent(Id));
     }
