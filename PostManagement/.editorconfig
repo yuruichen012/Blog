@@ -142,6 +142,9 @@ csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion
+csharp_prefer_static_local_function = true:suggestion
+csharp_style_prefer_readonly_struct = true:suggestion
+dotnet_diagnostic.CA2016.severity = warning
 ###############################
 # VB Coding Conventions       #
 ###############################

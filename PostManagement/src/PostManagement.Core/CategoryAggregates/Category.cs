@@ -52,6 +52,19 @@ public class Category : EntityBase<uint>, IAggregateRoot
     }
 
     /// <summary>
+    /// 设置父节点
+    /// </summary>
+    public void SetParentId(uint parentId)
+    {
+        CheckSaved();
+
+        ParentId = parentId;
+        ConcurrencyStamp.Change();
+
+        RegisterDomainEvent(new CategoryParentIdChangedEvent(Id, parentId));
+    }
+
+    /// <summary>
     /// 设置名称
     /// </summary>
     /// <param name="name">名称</param>
