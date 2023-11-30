@@ -2,9 +2,9 @@
 
 namespace PostManagement.Core.CategoryAggregates.Specifications;
 
-public class AnyByParentIdSpec : Specification<Category>
+public class CategoryByParentIdSpec : Specification<Category>
 {
-    public AnyByParentIdSpec(uint parentId)
+    public CategoryByParentIdSpec(uint parentId)
     {
         Query.Where(x => x.ParentId == parentId && x.DeletionStatus.MarkedForDeletion == false);
     }

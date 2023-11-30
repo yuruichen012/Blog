@@ -28,6 +28,7 @@ builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
     o.ShortSchemaNames = true;
+    o.AutoTagPathSegmentIndex = 0;
 });
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices

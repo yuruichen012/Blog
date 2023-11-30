@@ -10,7 +10,7 @@ public class CategoryDeletedHandler(IRepository<Category> repository) : INotific
 {
     public async Task Handle(CategoryDeletedEvent notification, CancellationToken cancellationToken)
     {
-        if (await repository.AnyAsync(new AnyByParentIdSpec(notification.Id), cancellationToken))
+        if (await repository.AnyAsync(new CategoryByParentIdSpec(notification.Id), cancellationToken))
         {
             throw new SubcategoriesUnderTheCategoryException();
         }

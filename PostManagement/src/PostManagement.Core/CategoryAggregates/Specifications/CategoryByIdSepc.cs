@@ -2,9 +2,9 @@
 
 namespace PostManagement.Core.CategoryAggregates.Specifications;
 
-public class AnyByIdSepc : Specification<Category>
+public class CategoryByIdSepc : Specification<Category>
 {
-    public AnyByIdSepc(uint id)
+    public CategoryByIdSepc(uint id)
     {
         Query.Where(x => x.Id == id && x.DeletionStatus.MarkedForDeletion == false);
     }

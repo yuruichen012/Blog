@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
+using PostManagement.Core.CategoryAggregates;
 using PostManagement.UseCases.Categories.Update;
 
 namespace PostManagement.Web.Categories;
@@ -10,6 +11,7 @@ public class Update(IMediator mediator) : Endpoint<UpdateCategoryRequest, Result
     public override void Configure()
     {
         Put(UpdateCategoryRequest.Route);
+        Options(x => x.WithTags(nameof(Category)));
         AllowAnonymous();
         Summary(x =>
         {
