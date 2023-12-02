@@ -4,5 +4,5 @@ public class DeleteCategoryRequest
 {
     public const string Route = "/Category/{Id}";
 
-    public uint Id { get; set; }
+    public Guid Id { get; set; }
 }

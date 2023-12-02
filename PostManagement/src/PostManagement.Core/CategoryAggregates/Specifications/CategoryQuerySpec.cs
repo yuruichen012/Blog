@@ -5,7 +5,7 @@ namespace PostManagement.Core.CategoryAggregates.Specifications;
 
 public class CategoryQuerySpec<TResult> : Specification<Category, TResult> where TResult : class
 {
-    public CategoryQuerySpec(Expression<Func<Category, TResult>> selector, uint? parentId = null, string? name = null, bool nameLikeQuery = true, int? skip = null, int? take = null)
+    public CategoryQuerySpec(Expression<Func<Category, TResult>> selector, Guid? parentId = null, string? name = null, bool nameLikeQuery = true, int? skip = null, int? take = null)
     {
         Query.Select(selector);
 

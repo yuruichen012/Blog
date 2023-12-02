@@ -9,7 +9,7 @@ namespace PostManagement.Core.CategoryAggregates;
 /// <summary>
 /// 类别
 /// </summary>
-public class Category : EntityBase<uint>, IAggregateRoot
+public class Category : EntityBase<Guid>, IAggregateRoot
 {
     /// <inheritdoc/>
     public ConcurrencyStamp ConcurrencyStamp { get; private set; } = null!;
@@ -20,7 +20,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
     /// <summary>
     /// 父节点
     /// </summary>
-    public uint ParentId { get; private set; }
+    public Guid ParentId { get; private set; }
 
     /// <summary>
     /// 名称
@@ -34,7 +34,7 @@ public class Category : EntityBase<uint>, IAggregateRoot
     /// </summary>
     /// <param name="parentId">父节点</param>
     /// <param name="name">名称</param>
-    public Category(uint parentId, string name)
+    public Category(Guid parentId, string name)
     {
         ParentId = parentId;
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
@@ -47,14 +47,14 @@ public class Category : EntityBase<uint>, IAggregateRoot
     {
         if (Id == default)
         {
-            throw new CategoryNameChangedBeforeSaveException();
+            throw new CategoryChangedBeforeSaveException();
         }
     }
 
     /// <summary>
     /// 设置父节点
     /// </summary>
-    public void SetParentId(uint parentId)
+    public void SetParentId(Guid parentId)
     {
         CheckSaved();
 

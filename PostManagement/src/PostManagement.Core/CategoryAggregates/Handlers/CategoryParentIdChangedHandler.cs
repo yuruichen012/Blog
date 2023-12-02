@@ -10,7 +10,7 @@ public class CategoryParentIdChangedHandler(IRepository<Category> repository) : 
 {
     public async Task Handle(CategoryParentIdChangedEvent notification, CancellationToken cancellationToken)
     {
-        if (notification.ParentId == 0 || await repository.AnyAsync(new CategoryByIdSepc(notification.ParentId), cancellationToken))
+        if (notification.ParentId == default || await repository.AnyAsync(new CategoryByIdSepc(notification.ParentId), cancellationToken))
         {
             return;
         }

@@ -2,11 +2,11 @@
 
 namespace PostManagement.Core.PostAggregates;
 
-public class PostCategory(int id, string name) : ValueObject
+public class PostCategory(Guid id, string name) : ValueObject
 {
-    public static readonly PostCategory Uncategory = new(0, "Uncategory");
+    public static readonly PostCategory Uncategory = new(default, "Uncategory");
 
-    public int Id { get; init; } = id;
+    public Guid Id { get; init; } = id;
 
     public string Name { get; init; } = name;
 

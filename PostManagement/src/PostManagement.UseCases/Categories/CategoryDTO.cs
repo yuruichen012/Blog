@@ -1,3 +1,3 @@
 ﻿namespace PostManagement.UseCases.Categories;
 
-public record class CategoryDTO(uint Id, uint ParentId, string Name);
+public record class CategoryDTO(Guid Id, Guid ParentId, string Name);

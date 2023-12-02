@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using PostManagement.Core.PostAggregates.Events;
+using PostManagement.Core.PostAggregates.Exceptions;
 using Shared.Ddd;
 
 namespace PostManagement.Core.PostAggregates;
@@ -8,7 +9,7 @@ namespace PostManagement.Core.PostAggregates;
 /// <summary>
 /// 文章
 /// </summary>
-public class Post : EntityBase<uint>, IAggregateRoot
+public class Post : EntityBase<Guid>, IAggregateRoot
 {
     /// <inheritdoc/>
     public ConcurrencyStamp ConcurrencyStamp { get; private set; } = null!;
@@ -43,12 +44,34 @@ public class Post : EntityBase<uint>, IAggregateRoot
 
     protected Post() { }
 
-    public Post(string title, string content, PostAuthor author)
+    public Post(string title, string content, PostAuthor author, PostCategory category)
     {
         Title = Guard.Against.Null(title);
         Content = Guard.Against.Null(content);
-        Author = author;
+        Author = Guard.Against.Null(author);
+        Category = Guard.Against.Null(category);
+        Status = PostStatus.Draft;
 
-        RegisterDomainEvent(new PostDraftedEvent(title, content, author));
+        ConcurrencyStamp = ConcurrencyStamp.Create();
+        DeletionStatus = DeletionStatus.Valid;
+
+        RegisterDomainEvent(new PostCreatedToDraftEvent(title, content, author, category));
+    }
+
+    private void CheckSaved()
+    {
+        if (Id == default)
+        {
+            throw new PostChangedBeforeSaveException();
+        }
+    }
+
+    public void SetTitle(string title)
+    {
+        CheckSaved();
+
+        Title = Guard.Against.Null(title);
+
+        RegisterDomainEvent(new PostTitleChangedEvent());
     }
 }

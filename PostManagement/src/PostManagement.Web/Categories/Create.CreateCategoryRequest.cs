@@ -7,7 +7,7 @@ public class CreateCategoryRequest
     /// <summary>
     /// 父节点
     /// </summary>
-    public uint ParentId { get; set; }
+    public Guid ParentId { get; set; }
 
     /// <summary>
     /// 名称

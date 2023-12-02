@@ -6,7 +6,7 @@ using PostManagement.UseCases.Categories.Create;
 
 namespace PostManagement.Web.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<uint>>
+public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<Guid>>
 {
     public override void Configure()
     {
@@ -17,7 +17,7 @@ public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result
         {
             s.ExampleRequest = new CreateCategoryRequest()
             {
-                ParentId = 0,
+                ParentId = default,
                 Name = "测试"
             };
         });

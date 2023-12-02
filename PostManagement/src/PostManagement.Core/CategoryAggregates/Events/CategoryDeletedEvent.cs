@@ -5,10 +5,10 @@ namespace PostManagement.Core.CategoryAggregates.Events;
 /// <summary>
 /// 类别删除事件
 /// </summary>
-public class CategoryDeletedEvent(uint id) : DomainEventBase
+public class CategoryDeletedEvent(Guid id) : DomainEventBase
 {
     /// <summary>
     /// 标记
     /// </summary>
-    public uint Id { get; init; } = id;
+    public Guid Id { get; init; } = id;
 }

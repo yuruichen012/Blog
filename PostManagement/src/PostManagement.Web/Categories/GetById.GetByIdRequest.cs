@@ -1,8 +1,8 @@
 ﻿namespace PostManagement.Web.Categories;
 
-public class GetByIdCategoryRequest(uint id)
+public class GetByIdCategoryRequest(Guid id)
 {
     public const string Route = "/Category/{Id}";
 
-    public uint Id { get; init; } = id;
+    public Guid Id { get; init; } = id;
 }

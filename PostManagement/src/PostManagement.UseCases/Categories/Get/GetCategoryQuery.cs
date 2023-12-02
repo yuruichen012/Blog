@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace PostManagement.UseCases.Categories.Get;
 
-public record class GetCategoryQuery(uint Id) : IQuery<Result<CategoryDTO>>;
+public record class GetCategoryQuery(Guid Id) : IQuery<Result<CategoryDTO>>;

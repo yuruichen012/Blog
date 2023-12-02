@@ -7,12 +7,12 @@ namespace PostManagement.Core.CategoryAggregates.Events;
 /// </summary>
 /// <param name="id">标识</param>
 /// <param name="name">名称</param>
-public class CategoryNameChangedEvent(uint id, string name) : DomainEventBase
+public class CategoryNameChangedEvent(Guid id, string name) : DomainEventBase
 {
     /// <summary>
     /// 标识
     /// </summary>
-    public uint Id { get; init; } = id;
+    public Guid Id { get; init; } = id;
 
     /// <summary>
     /// 名称

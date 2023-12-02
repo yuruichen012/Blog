@@ -3,4 +3,4 @@ using Ardalis.SharedKernel;
 
 namespace PostManagement.UseCases.Categories.Delete;
 
-public record class DeleteCategoryCommand(uint Id) : ICommand<Result>;
+public record class DeleteCategoryCommand(Guid Id) : ICommand<Result>;
