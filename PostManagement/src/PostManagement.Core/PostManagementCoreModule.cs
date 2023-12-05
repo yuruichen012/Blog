@@ -1,11 +1,9 @@
 ﻿using Autofac;
+using AutofacModule = Autofac.Module;
 
 namespace PostManagement.Core;
 
-/// <summary>
-/// An Autofac module that is responsible for wiring up services defined in the Core project.
-/// </summary>
-public class PostManagementCoreModule : Module
+public class PostManagementCoreModule : AutofacModule
 {
     protected override void Load(ContainerBuilder builder)
     {

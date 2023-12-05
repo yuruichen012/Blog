@@ -1,17 +1,23 @@
-﻿using Ardalis.SharedKernel;
+﻿using SharedKernel;
 
 namespace PostManagement.Core.PostAggregates;
 
 /// <summary>
-/// 作者
+/// 文章作者
 /// </summary>
-public class PostAuthor(int id, string name) : ValueObject
+public class PostAuthor(Guid id, string name) : ValueObject
 {
-    public int Id { get; init; } = id;
+    public Guid Id { get; init; } = id;
+
     public string Name { get; init; } = name;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Id;
+        throw new NotImplementedException();
+    }
+
+    public static PostAuthor From(Guid id, string name)
+    {
+        return new(id, name);
     }
 }

@@ -1,93 +1,56 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.SharedKernel;
-using PostManagement.Core.CategoryAggregates.Events;
-using PostManagement.Core.CategoryAggregates.Exceptions;
-using Shared.Ddd;
+﻿using PostManagement.Core.CategoryAggregates.Events;
+using SharedKernel;
 
 namespace PostManagement.Core.CategoryAggregates;
 
 /// <summary>
 /// 类别
 /// </summary>
-public class Category : EntityBase<Guid>, IAggregateRoot
+public class Category : Entity<int>, IAggregateRoot
 {
-    /// <inheritdoc/>
-    public ConcurrencyStamp ConcurrencyStamp { get; private set; } = null!;
-
-    /// <inheritdoc/>
-    public DeletionStatus DeletionStatus { get; private set; } = null!;
-
     /// <summary>
     /// 父节点
     /// </summary>
-    public Guid ParentId { get; private set; }
+    public int ParentId { get; private set; }
 
     /// <summary>
     /// 名称
     /// </summary>
-    public string Name { get; private set; } = default!;
+    public string Name { get; private set; } = null!;
 
+    /// <summary>
+    /// for orm
+    /// </summary>
     protected Category() { }
 
     /// <summary>
     /// 创建类别
     /// </summary>
-    /// <param name="parentId">父节点</param>
-    /// <param name="name">名称</param>
-    public Category(Guid parentId, string name)
+    public Category(int parentId, string name)
     {
         ParentId = parentId;
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        DeletionStatus = DeletionStatus.Valid;
+        Name = name;
 
-        RegisterDomainEvent(new CategoryCreatedEvent(parentId, name));
-    }
-
-    private void CheckSaved()
-    {
-        if (Id == default)
-        {
-            throw new CategoryChangedBeforeSaveException();
-        }
+        AddDomainEvent(new CategoryCreatedDomainEvent(this));
     }
 
     /// <summary>
-    /// 设置父节点
+    /// 设置新父节点
     /// </summary>
-    public void SetParentId(Guid parentId)
+    public void SetParentId(int parentId) 
     {
-        CheckSaved();
-
         ParentId = parentId;
-        ConcurrencyStamp.Change();
 
-        RegisterDomainEvent(new CategoryParentIdChangedEvent(Id, parentId));
+        AddDomainEvent(new CategoryParentChangedDomainEvent(this));
     }
 
     /// <summary>
-    /// 设置名称
+    /// 设置新名称
     /// </summary>
-    /// <param name="name">名称</param>
     public void SetName(string name)
     {
-        CheckSaved();
+        Name = name;
 
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        ConcurrencyStamp.Change();
-
-        RegisterDomainEvent(new CategoryNameChangedEvent(Id, name));
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    public void Remove()
-    {
-        CheckSaved();
-
-        DeletionStatus = DeletionStatus.Invalid;
-        ConcurrencyStamp.Change();
-
-        RegisterDomainEvent(new CategoryDeletedEvent(Id));
+        AddDomainEvent(new CategoryNameChangedDomainEvent(this));
     }
 }

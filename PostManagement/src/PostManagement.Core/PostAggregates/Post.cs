@@ -1,22 +1,13 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.SharedKernel;
-using PostManagement.Core.PostAggregates.Events;
-using PostManagement.Core.PostAggregates.Exceptions;
-using Shared.Ddd;
+﻿using PostManagement.Core.PostAggregates.Events;
+using SharedKernel;
 
 namespace PostManagement.Core.PostAggregates;
 
 /// <summary>
 /// 文章
 /// </summary>
-public class Post : EntityBase<Guid>, IAggregateRoot
+public class Post : Entity<int>, IAggregateRoot
 {
-    /// <inheritdoc/>
-    public ConcurrencyStamp ConcurrencyStamp { get; private set; } = null!;
-
-    /// <inheritdoc/>
-    public DeletionStatus DeletionStatus { get; private set; } = null!;
-
     /// <summary>
     /// 标题
     /// </summary>
@@ -28,11 +19,6 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     public string Content { get; private set; } = null!;
 
     /// <summary>
-    /// 分类
-    /// </summary>
-    public PostCategory Category { get; private set; } = null!;
-
-    /// <summary>
     /// 作者
     /// </summary>
     public PostAuthor Author { get; private set; } = null!;
@@ -42,36 +28,21 @@ public class Post : EntityBase<Guid>, IAggregateRoot
     /// </summary>
     public PostStatus Status { get; private set; } = null!;
 
+    /// <summary>
+    /// for orm
+    /// </summary>
     protected Post() { }
 
-    public Post(string title, string content, PostAuthor author, PostCategory category)
+    /// <summary>
+    /// 创建文章
+    /// </summary>
+    public Post(string title, string content, PostAuthor author)
     {
-        Title = Guard.Against.Null(title);
-        Content = Guard.Against.Null(content);
-        Author = Guard.Against.Null(author);
-        Category = Guard.Against.Null(category);
+        Title = title;
+        Content = content;
+        Author = author;
         Status = PostStatus.Draft;
 
-        ConcurrencyStamp = ConcurrencyStamp.Create();
-        DeletionStatus = DeletionStatus.Valid;
-
-        RegisterDomainEvent(new PostCreatedToDraftEvent(title, content, author, category));
-    }
-
-    private void CheckSaved()
-    {
-        if (Id == default)
-        {
-            throw new PostChangedBeforeSaveException();
-        }
-    }
-
-    public void SetTitle(string title)
-    {
-        CheckSaved();
-
-        Title = Guard.Against.Null(title);
-
-        RegisterDomainEvent(new PostTitleChangedEvent());
+        AddDomainEvent(new PostCreatedToDraftDomainEvent(this));
     }
 }
