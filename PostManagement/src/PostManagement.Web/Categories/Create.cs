@@ -1,10 +1,11 @@
 ﻿using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using PostManagement.UseCases.Categories.Create;
 
 namespace PostManagement.Web.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, int>
+public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Results<Ok<int>, NotFound, BadRequest<string>>>
 {
     public override void Configure()
     {
@@ -17,8 +18,15 @@ public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, int>
         });
     }
 
-    public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
+    public override async Task<Results<Ok<int>, NotFound, BadRequest<string>>> ExecuteAsync(CreateCategoryRequest req, CancellationToken ct)
     {
-        Response = await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct);
+        try
+        {
+            return TypedResults.Ok(await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct));
+        }
+        catch
+        {
+            return TypedResults.BadRequest("");
+        }
     }
 }

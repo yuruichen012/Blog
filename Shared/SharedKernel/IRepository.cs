@@ -38,6 +38,11 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// 存在
+    /// </summary>
+    Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken= default);
+
+    /// <summary>
     /// 获取集合
     /// </summary>
     Task<List<T>> ListAsync(CancellationToken cancellationToken = default);

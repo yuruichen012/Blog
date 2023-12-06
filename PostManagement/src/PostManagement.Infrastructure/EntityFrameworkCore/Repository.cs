@@ -14,29 +14,29 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
         await Set.AddAsync(entity, cancellationToken);
     }
 
-    public async Task<T> FirstAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+    public Task<T> FirstAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
-        return await Set.FirstAsync(expression, cancellationToken);
+        return Set.FirstAsync(expression, cancellationToken);
     }
 
-    public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+    public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
-        return await Set.FirstOrDefaultAsync(expression, cancellationToken);
+        return Set.FirstOrDefaultAsync(expression, cancellationToken);
     }
 
-    public async ValueTask<T?> GetAsync(TKey id, CancellationToken cancellationToken = default)
+    public ValueTask<T?> GetAsync(TKey id, CancellationToken cancellationToken = default)
     {
-        return await Set.FindAsync([ id ], cancellationToken);
+        return Set.FindAsync([ id ], cancellationToken);
     }
 
-    public async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
+    public Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
     {
-        return await Set.ToListAsync(cancellationToken);
+        return Set.ToListAsync(cancellationToken);
     }
 
-    public async Task<List<T>> ListAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+    public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
-        return await Set.Where(expression).ToListAsync(cancellationToken);
+        return Set.Where(expression).ToListAsync(cancellationToken);
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -60,13 +60,18 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
         return await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<T> SingleAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+    public Task<T> SingleAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
-        return await Set.SingleAsync(expression, cancellationToken);
+        return Set.SingleAsync(expression, cancellationToken);
     }
 
-    public async Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+    public Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
-        return await Set.SingleOrDefaultAsync(expression, cancellationToken);
+        return Set.SingleOrDefaultAsync(expression, cancellationToken);
+    }
+
+    public Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken)
+    {
+        return Set.AnyAsync(expression, cancellationToken);
     }
 }
