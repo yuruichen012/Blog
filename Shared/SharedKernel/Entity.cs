@@ -91,12 +91,12 @@ public class Entity<TKey>
             return base.GetHashCode();
         }
     }
-    public static bool operator ==(Entity<TKey> left, Entity<TKey> right)
+    public static bool operator ==(Entity<TKey>? left, Entity<TKey>? right)
     {
         return Equals(left, null) ? Equals(right, null) : left.Equals(right);
     }
 
-    public static bool operator !=(Entity<TKey> left, Entity<TKey> right)
+    public static bool operator !=(Entity<TKey>? left, Entity<TKey>? right)
     {
         return !(left == right);
     }
