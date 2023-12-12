@@ -29,6 +29,11 @@ public class Post : Entity<int>, IAggregateRoot
     public PostStatus Status { get; private set; } = null!;
 
     /// <summary>
+    /// 发布时间
+    /// </summary>
+    public DateTime? PublishedTime { get; private set; }
+
+    /// <summary>
     /// for orm
     /// </summary>
     protected Post() { }
@@ -44,5 +49,18 @@ public class Post : Entity<int>, IAggregateRoot
         Status = PostStatus.Draft;
 
         AddDomainEvent(new PostCreatedToDraftDomainEvent(this));
+    }
+
+    public void Publish()
+    {
+        if (Status != PostStatus.Draft)
+        {
+            return;
+        }
+
+        Status = PostStatus.Published;
+        PublishedTime = DateTime.Now;
+
+        AddDomainEvent(new PostPublishedDomainEvent(this));
     }
 }

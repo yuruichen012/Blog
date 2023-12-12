@@ -1,16 +1,18 @@
-﻿using FastEndpoints;
+﻿using Ardalis.Result;
+using FastEndpoints;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using PostManagement.UseCases.Categories.Create;
+using PostManagement.Web.Extensions;
 
 namespace PostManagement.Web.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Results<Ok<int>, NotFound, BadRequest<string>>>
+public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<int>>
 {
     public override void Configure()
     {
         Post(CreateCategoryRequest.Route);
         AllowAnonymous();
+        DontThrowIfValidationFails();
         Summary(x =>
         {
             x.ExampleRequest = new CreateCategoryRequest(0, ".NET");
@@ -18,15 +20,13 @@ public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result
         });
     }
 
-    public override async Task<Results<Ok<int>, NotFound, BadRequest<string>>> ExecuteAsync(CreateCategoryRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
     {
-        try
+        if (this.ReturnValidationErrorsIfInvalid())
         {
-            return TypedResults.Ok(await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct));
+            return;
         }
-        catch
-        {
-            return TypedResults.BadRequest("");
-        }
+
+        Response = await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct);
     }
 }

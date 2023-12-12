@@ -1,19 +1,16 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using MediatR;
 using PostManagement.Core.CategoryAggregates;
 using SharedKernel;
+using SharedKernel.Exceptions;
 
 namespace PostManagement.UseCases.Categories.Update;
 
-public class UpdateCategoryCommandHandler(IRepository<int, Category> repository) : IRequestHandler<UpdateCategoryCommand, CategoryDTO>
+public class UpdateCategoryCommandHandler(IRepository<int, Category> repository) : IRequestHandler<UpdateCategoryCommand, Result<CategoryDTO>>
 {
-    public async Task<CategoryDTO> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CategoryDTO>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await repository.GetAsync(request.Id, cancellationToken);
-        if (category == null)
-        {
-            throw new Exception("Not Support");
-        }
-
+        var category = await repository.GetAsync(request.Id, cancellationToken) ?? throw new ObjectNotFoundException("Category.NotFound");
         if (category.ParentId != request.ParentId)
         {
             category.SetParentId(request.ParentId);
@@ -26,6 +23,6 @@ public class UpdateCategoryCommandHandler(IRepository<int, Category> repository)
 
         await repository.SaveChangesAsync(cancellationToken);
 
-        return category;
+        return Result.Success<CategoryDTO>(category);
     }
 }

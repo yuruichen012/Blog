@@ -24,4 +24,8 @@
     <ProjectReference Include="..\PostManagement.UseCases\PostManagement.UseCases.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>
