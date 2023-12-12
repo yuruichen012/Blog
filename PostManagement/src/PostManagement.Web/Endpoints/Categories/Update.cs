@@ -5,7 +5,7 @@ using PostManagement.UseCases.Categories;
 using PostManagement.UseCases.Categories.Update;
 using PostManagement.Web.Extensions;
 
-namespace PostManagement.Web.Categories;
+namespace PostManagement.Web.Endpoints.Categories;
 
 public class Update(IMediator mediator) : Endpoint<UpdateCategoryRequest, Result<CategoryDTO>>
 {
@@ -16,7 +16,7 @@ public class Update(IMediator mediator) : Endpoint<UpdateCategoryRequest, Result
         DontThrowIfValidationFails();
         Summary(x =>
         {
-            x.ExampleRequest = new 
+            x.ExampleRequest = new
             {
                 ParentId = 0,
                 Name = "新名称"
@@ -33,6 +33,6 @@ public class Update(IMediator mediator) : Endpoint<UpdateCategoryRequest, Result
             return;
         }
 
-        Response  = await mediator.Send(new UpdateCategoryCommand(req.Id, req.ParentId, req.Name), ct);
+        Response = await mediator.Send(new UpdateCategoryCommand(req.Id, req.ParentId, req.Name), ct);
     }
 }

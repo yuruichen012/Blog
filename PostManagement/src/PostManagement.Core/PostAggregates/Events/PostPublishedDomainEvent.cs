@@ -2,4 +2,7 @@
 
 namespace PostManagement.Core.PostAggregates.Events;
 
-public record class PostPublishedDomainEvent(Post post) : INotification;
+/// <summary>
+/// 文章发布领域事件
+/// </summary>
+public record class PostPublishedDomainEvent(Post Post) : INotification;

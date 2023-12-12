@@ -1,4 +1,4 @@
-﻿namespace PostManagement.Web.Categories;
+﻿namespace PostManagement.Web.Endpoints.Categories;
 
 public record class UpdateCategoryRequest(int Id, int ParentId, string Name)
 {

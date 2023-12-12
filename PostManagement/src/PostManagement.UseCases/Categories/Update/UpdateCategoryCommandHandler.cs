@@ -6,11 +6,19 @@ using SharedKernel.Exceptions;
 
 namespace PostManagement.UseCases.Categories.Update;
 
+/// <summary>
+/// 更新类别
+/// </summary>
 public class UpdateCategoryCommandHandler(IRepository<int, Category> repository) : IRequestHandler<UpdateCategoryCommand, Result<CategoryDTO>>
 {
     public async Task<Result<CategoryDTO>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
         var category = await repository.GetAsync(request.Id, cancellationToken) ?? throw new ObjectNotFoundException("Category.NotFound");
+        if (category == null)
+        {
+            return Result.NotFound();
+        }
+
         if (category.ParentId != request.ParentId)
         {
             category.SetParentId(request.ParentId);

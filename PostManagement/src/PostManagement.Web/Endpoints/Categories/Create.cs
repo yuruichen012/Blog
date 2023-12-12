@@ -1,12 +1,13 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
+using PostManagement.UseCases.Categories;
 using PostManagement.UseCases.Categories.Create;
 using PostManagement.Web.Extensions;
 
-namespace PostManagement.Web.Categories;
+namespace PostManagement.Web.Endpoints.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<int>>
+public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<CategoryDTO>>
 {
     public override void Configure()
     {
