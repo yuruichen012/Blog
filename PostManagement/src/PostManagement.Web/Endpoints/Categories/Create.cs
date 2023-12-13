@@ -2,7 +2,6 @@
 using FastEndpoints;
 using MediatR;
 using PostManagement.UseCases.Categories;
-using PostManagement.UseCases.Categories.Create;
 using PostManagement.UseCases.Categories.Data;
 using PostManagement.Web.Extensions;
 
