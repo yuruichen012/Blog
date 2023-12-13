@@ -14,6 +14,7 @@ public class Publish(IMediator mediator) : Endpoint<PublishPostRequest, Result<P
         Post(PublishPostRequest.Route);
         AllowAnonymous();
         DontThrowIfValidationFails();
+        Description(x => x.Accepts<PublishPostRequest>());
         Summary(x =>
         {
             x.ExampleRequest = new PublishPostRequest(0);
