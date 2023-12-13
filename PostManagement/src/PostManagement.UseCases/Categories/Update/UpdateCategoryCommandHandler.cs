@@ -2,7 +2,6 @@
 using MediatR;
 using PostManagement.Core.CategoryAggregates;
 using SharedKernel;
-using SharedKernel.Exceptions;
 
 namespace PostManagement.UseCases.Categories.Update;
 
@@ -13,7 +12,7 @@ public class UpdateCategoryCommandHandler(IRepository<int, Category> repository)
 {
     public async Task<Result<CategoryDTO>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await repository.GetAsync(request.Id, cancellationToken) ?? throw new ObjectNotFoundException("Category.NotFound");
+        var category = await repository.GetAsync(request.Id, cancellationToken);
         if (category == null)
         {
             return Result.NotFound();
