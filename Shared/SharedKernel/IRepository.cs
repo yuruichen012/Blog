@@ -13,9 +13,44 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     ValueTask<T?> GetAsync(TKey id, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// 获取集合
+    /// </summary>
+    Task<List<T>> GetListAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 获取集合
+    /// </summary>
+    Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 获取分页数据
+    /// </summary>
+    Task<List<T>> GetPagedResultAsync(int skip, int totalCount, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 获取分页数据
+    /// </summary>
+    Task<List<T>> GetPagedResultAsync(Expression<Func<T, bool>> predicate, int skip, int totalCount, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// 添加
     /// </summary>
     ValueTask AddAsync(T entity, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 添加
+    /// </summary>
+    ValueTask AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    ValueTask UpdateAsync(T entity, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    ValueTask UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取第一条
@@ -41,16 +76,6 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     /// 存在
     /// </summary>
     Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken= default);
-
-    /// <summary>
-    /// 获取集合
-    /// </summary>
-    Task<List<T>> ListAsync(CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// 获取集合
-    /// </summary>
-    Task<List<T>> ListAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 保存

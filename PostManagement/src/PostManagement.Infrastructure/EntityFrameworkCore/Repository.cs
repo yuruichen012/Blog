@@ -14,6 +14,43 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
         await Set.AddAsync(entity, cancellationToken);
     }
 
+    public async ValueTask AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        await Set.AddRangeAsync(entities, cancellationToken);
+    }
+
+    public ValueTask UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    {
+        Set.Update(entity);
+        return ValueTask.CompletedTask;
+    }
+
+    public ValueTask UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    {
+        Set.UpdateRange(entities);
+        return ValueTask.CompletedTask;
+    }
+
+    public Task<List<T>> GetListAsync(CancellationToken cancellationToken = default)
+    {
+        return Set.ToListAsync(cancellationToken);
+    }
+
+    public Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return Set.Where(predicate).ToListAsync(cancellationToken);
+    }
+
+    public Task<List<T>> GetPagedResultAsync(int skip, int totalCount, CancellationToken cancellationToken = default)
+    {
+        return Set.Skip(skip).Take(totalCount).ToListAsync(cancellationToken);
+    }
+
+    public Task<List<T>> GetPagedResultAsync(Expression<Func<T, bool>> predicate, int skip, int totalCount, CancellationToken cancellationToken = default)
+    {
+        return Set.Where(predicate).Skip(skip).Take(totalCount).ToListAsync(cancellationToken);
+    }
+
     public Task<T> FirstAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
     {
         return Set.FirstAsync(expression, cancellationToken);
@@ -27,16 +64,6 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
     public ValueTask<T?> GetAsync(TKey id, CancellationToken cancellationToken = default)
     {
         return Set.FindAsync([ id ], cancellationToken);
-    }
-
-    public Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
-    {
-        return Set.ToListAsync(cancellationToken);
-    }
-
-    public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
-    {
-        return Set.Where(expression).ToListAsync(cancellationToken);
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
