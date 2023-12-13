@@ -1,5 +1,6 @@
 ﻿using Ardalis.Result;
 using MediatR;
+using PostManagement.UseCases.Posts.Data;
 
 namespace PostManagement.UseCases.Posts.Update;
 

@@ -1,9 +1,11 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using PostManagement.Core.PostAggregates;
+using PostManagement.UseCases.Posts.Data;
+using PostManagement.UseCases.Posts.Update;
 using SharedKernel;
 
-namespace PostManagement.UseCases.Posts.Update;
+namespace PostManagement.UseCases.Posts;
 
 /// <summary>
 /// 更新文章

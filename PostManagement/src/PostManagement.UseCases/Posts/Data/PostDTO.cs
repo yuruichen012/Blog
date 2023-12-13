@@ -1,6 +1,6 @@
 ﻿using PostManagement.Core.PostAggregates;
 
-namespace PostManagement.UseCases.Posts;
+namespace PostManagement.UseCases.Posts.Data;
 
 public record class PostDTO(int Id, string Title, string Content, Guid AuthorId, string AuthorName, int Status, DateTime? PublishedTime)
 {

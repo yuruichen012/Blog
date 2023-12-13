@@ -1,7 +1,8 @@
 ﻿using Ardalis.Result;
 using MediatR;
+using PostManagement.UseCases.Posts.Data;
 
-namespace PostManagement.UseCases.Posts.Pub;
+namespace PostManagement.UseCases.Posts;
 
 /// <summary>
 /// 发布文章命令

@@ -1,10 +1,11 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using PostManagement.Core.PostAggregates;
+using PostManagement.UseCases.Posts.Data;
 using SharedKernel;
 using SharedKernel.Exceptions;
 
-namespace PostManagement.UseCases.Posts.Create;
+namespace PostManagement.UseCases.Posts;
 
 /// <summary>
 /// 创建文章

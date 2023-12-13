@@ -1,9 +1,10 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using PostManagement.Core.PostAggregates;
+using PostManagement.UseCases.Posts.Data;
 using SharedKernel;
 
-namespace PostManagement.UseCases.Posts.Pub;
+namespace PostManagement.UseCases.Posts;
 
 /// <summary>
 /// 发布文章

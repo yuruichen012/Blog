@@ -2,6 +2,7 @@
 using FastEndpoints;
 using MediatR;
 using PostManagement.UseCases.Posts;
+using PostManagement.UseCases.Posts.Data;
 using PostManagement.UseCases.Posts.Pub;
 using PostManagement.Web.Extensions;
 
@@ -14,7 +15,6 @@ public class Publish(IMediator mediator) : Endpoint<PublishPostRequest, Result<P
         Post(PublishPostRequest.Route);
         AllowAnonymous();
         DontThrowIfValidationFails();
-        Description(x => x.Accepts<PublishPostRequest>());
         Summary(x =>
         {
             x.ExampleRequest = new PublishPostRequest(0);

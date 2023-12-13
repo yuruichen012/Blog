@@ -1,9 +1,11 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using PostManagement.Core.CategoryAggregates;
+using PostManagement.UseCases.Categories.Data;
+using PostManagement.UseCases.Categories.Update;
 using SharedKernel;
 
-namespace PostManagement.UseCases.Categories.Update;
+namespace PostManagement.UseCases.Categories;
 
 /// <summary>
 /// 更新类别

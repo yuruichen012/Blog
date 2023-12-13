@@ -3,6 +3,7 @@ using FastEndpoints;
 using MediatR;
 using PostManagement.UseCases.Posts;
 using PostManagement.UseCases.Posts.Create;
+using PostManagement.UseCases.Posts.Data;
 using PostManagement.Web.Extensions;
 
 namespace PostManagement.Web.Endpoints.Posts;

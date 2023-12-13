@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using PostManagement.UseCases.Posts;
+using PostManagement.UseCases.Posts.Data;
 using PostManagement.UseCases.Posts.Update;
 using PostManagement.Web.Extensions;
 

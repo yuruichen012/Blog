@@ -1,6 +1,6 @@
 ﻿using PostManagement.Core.CategoryAggregates;
 
-namespace PostManagement.UseCases.Categories;
+namespace PostManagement.UseCases.Categories.Data;
 
 /// <summary>
 /// 类别传输对象
