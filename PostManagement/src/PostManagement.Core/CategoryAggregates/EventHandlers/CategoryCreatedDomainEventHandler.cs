@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PostManagement.Core.CategoryAggregates.Events;
 using SharedKernel;
+using SharedKernel.Exceptions;
 
 namespace PostManagement.Core.CategoryAggregates.EventHandlers;
 
@@ -13,6 +14,6 @@ public class CategoryCreatedDomainEventHandler(IRepository<int, Category> reposi
             return;
         }
 
-        throw new NotSupportedException();
+        throw new ObjectNotFoundException("Category.ParentId.NotFound");
     }
 }
