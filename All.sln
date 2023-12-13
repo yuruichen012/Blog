@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostManagement.UseCases", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostManagement.Infrastructure", "PostManagement\src\PostManagement.Infrastructure\PostManagement.Infrastructure.csproj", "{F8F8EB9B-8C4D-4499-9698-5961CCFBBCBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostManagement.Web", "PostManagement\src\PostManagement.Web\PostManagement.Web.csproj", "{12F73B4A-9ACB-4A1A-B0CF-98DEF22FEB85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostManagement.Web", "PostManagement\src\PostManagement.Web\PostManagement.Web.csproj", "{12F73B4A-9ACB-4A1A-B0CF-98DEF22FEB85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
