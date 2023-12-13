@@ -1,9 +1,8 @@
-﻿
-using PostManagement.Core.CategoryAggregates;
+﻿using PostManagement.Core.CategoryAggregates;
 using SharedKernel;
 using SharedKernel.Exceptions;
 
-namespace PostManagement.Core.PostAggregates;
+namespace PostManagement.Core.PostAggregates.Services;
 
 /// <summary>
 /// 领域服务 (internal)

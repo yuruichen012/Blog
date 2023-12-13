@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using PostManagement.Core.PostAggregates;
+using PostManagement.Core.PostAggregates.Services;
 using AutofacModule = Autofac.Module;
 
 namespace PostManagement.Core;

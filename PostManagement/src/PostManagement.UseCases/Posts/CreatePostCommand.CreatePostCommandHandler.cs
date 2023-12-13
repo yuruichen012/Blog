@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using PostManagement.Core.PostAggregates;
+using PostManagement.Core.PostAggregates.Services;
 using PostManagement.UseCases.Posts.Data;
 using SharedKernel;
 using SharedKernel.Exceptions;

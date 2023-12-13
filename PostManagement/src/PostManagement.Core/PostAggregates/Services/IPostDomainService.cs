@@ -1,6 +1,6 @@
 ﻿using SharedKernel.Exceptions;
 
-namespace PostManagement.Core.PostAggregates;
+namespace PostManagement.Core.PostAggregates.Services;
 
 /// <summary>
 /// 文章领域服务
