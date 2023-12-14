@@ -3,8 +3,10 @@ using Autofac;
 using MediatR;
 using MediatR.Pipeline;
 using PostManagement.Core;
+using PostManagement.Infrastructure.Categories.Services;
 using PostManagement.Infrastructure.EntityFrameworkCore;
 using PostManagement.UseCases;
+using PostManagement.UseCases.Categories.Services;
 using SharedKernel;
 using AutofacModule = Autofac.Module;
 
@@ -14,17 +16,23 @@ public class PostManagementInfrastructureModule : AutofacModule
 {
     protected override void Load(ContainerBuilder builder)
     {
+        RegisterServices(builder);
         RegisterMediatR(builder);
         RegisterRepositories(builder);
     }
 
-    private void RegisterRepositories(ContainerBuilder builder)
+    private static void RegisterServices(ContainerBuilder builder)
+    {
+        builder.RegisterType<CategoryStructuredService>().As<ICategoryStructuredService>().SingleInstance();
+    }
+
+    private static void RegisterRepositories(ContainerBuilder builder)
     {
         builder.RegisterType<DatabaseInitializer>();
         builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)).InstancePerLifetimeScope();
     }
 
-    private void RegisterMediatR(ContainerBuilder builder)
+    private static void RegisterMediatR(ContainerBuilder builder)
     {
         builder.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
 
