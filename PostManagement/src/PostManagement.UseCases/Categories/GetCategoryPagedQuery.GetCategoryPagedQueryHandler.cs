@@ -7,9 +7,9 @@ using SharedKernel.Common;
 
 namespace PostManagement.UseCases.Categories;
 
-public class GetCategoryQueryHandler(IRepository<int, Category> repository) : IRequestHandler<GetCategoryPagedResultQuery, PagedResult<List<CategoryDTO>>>
+public class GetCategoryPagedQueryHandler(IRepository<int, Category> repository) : IRequestHandler<GetCategoryPagedQuery, PagedResult<List<CategoryDTO>>>
 {
-    public async Task<PagedResult<List<CategoryDTO>>> Handle(GetCategoryPagedResultQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<List<CategoryDTO>>> Handle(GetCategoryPagedQuery request, CancellationToken cancellationToken)
     {
         var skip = PageHelper.GetSkip(request.PageNumber, request.PageSize);
 

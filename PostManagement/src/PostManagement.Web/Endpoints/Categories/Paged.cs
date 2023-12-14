@@ -29,6 +29,6 @@ public class Paged(IMediator mediator) : Endpoint<PagedCategoryRequest, Result<L
             return;
         }
 
-        Response = await mediator.Send(new GetCategoryPagedResultQuery(req.PageNumber, req.PageSize), ct);
+        Response = await mediator.Send(new GetCategoryPagedQuery(req.PageNumber, req.PageSize), ct);
     }
 }
