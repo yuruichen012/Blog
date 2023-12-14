@@ -4,4 +4,4 @@ using PostManagement.UseCases.Categories.Data;
 
 namespace PostManagement.UseCases.Categories;
 
-public record class GetCategoryPagedResultQuery(int Skip = 0, int TotalCount = 10) : IRequest<Result<PagedResult<CategoryDTO>>>;
+public record class GetCategoryPagedResultQuery(int PageNumber = 0, int PageSize = 10) : IRequest<PagedResult<List<CategoryDTO>>>;

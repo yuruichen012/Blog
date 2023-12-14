@@ -12,6 +12,7 @@ public class Update(IMediator mediator) : Endpoint<UpdatePostRequest, Result<Pos
     public override void Configure()
     {
         Put(UpdatePostRequest.Route);
+        Options(x => x.WithTags("Post"));
         AllowAnonymous();
         DontThrowIfValidationFails();
         Summary(x =>

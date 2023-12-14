@@ -12,6 +12,7 @@ public class Create(IMediator mediator) : Endpoint<CreatePostRequest, Result<Pos
     public override void Configure()
     {
         Post(CreatePostRequest.Route);
+        Options(x => x.WithTags("Post"));
         AllowAnonymous();
         DontThrowIfValidationFails();
         Summary(x =>

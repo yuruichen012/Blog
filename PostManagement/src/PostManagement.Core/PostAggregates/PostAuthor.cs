@@ -5,17 +5,8 @@ namespace PostManagement.Core.PostAggregates;
 /// <summary>
 /// 文章作者
 /// </summary>
-public class PostAuthor(Guid id, string name) : ValueObject
+public record class PostAuthor(Guid Id, string Name) : ValueObject
 {
-    public Guid Id { get; init; } = id;
-
-    public string Name { get; init; } = name;
-
-    protected override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Id;
-    }
-
     public static PostAuthor From(Guid id, string name)
     {
         return new(id, name);

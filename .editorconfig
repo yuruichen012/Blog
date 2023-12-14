@@ -74,6 +74,7 @@ dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 dotnet_naming_style.prefix_underscore.capitalization = camel_case
 dotnet_naming_style.prefix_underscore.required_prefix = _
 end_of_line = crlf
+dotnet_style_namespace_match_folder = true:suggestion
 ###############################
 # C# Coding Conventions       #
 ###############################

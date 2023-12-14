@@ -42,6 +42,7 @@ builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
     o.ShortSchemaNames = true;
+    o.AutoTagPathSegmentIndex = 0;
 });
 
 builder.Services.AddDbContext<PostManagementDbContext>(options => 

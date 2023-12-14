@@ -7,11 +7,11 @@ using PostManagement.Web.Extensions;
 
 namespace PostManagement.Web.Endpoints.Categories;
 
-public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result<CategoryDTO>>
+public class Paged(IMediator mediator) : Endpoint<PagedCategoryRequest, Result<List<CategoryDTO>>>
 {
     public override void Configure()
     {
-        Post(CreateCategoryRequest.Route);
+        Get(PagedCategoryRequest.Route);
         Options(x => x.WithTags("Category"));
         AllowAnonymous();
         DontThrowIfValidationFails();
@@ -22,13 +22,13 @@ public class Create(IMediator mediator) : Endpoint<CreateCategoryRequest, Result
         });
     }
 
-    public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
+    public override async Task HandleAsync(PagedCategoryRequest req, CancellationToken ct)
     {
         if (this.ReturnValidationErrorsIfInvalid())
         {
             return;
         }
 
-        Response = await mediator.Send(new CreateCategoryCommand(req.ParentId, req.Name), ct);
+        Response = await mediator.Send(new GetCategoryPagedResultQuery(req.PageNumber, req.PageSize), ct);
     }
 }

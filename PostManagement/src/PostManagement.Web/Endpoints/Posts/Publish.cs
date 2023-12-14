@@ -12,6 +12,7 @@ public class Publish(IMediator mediator) : Endpoint<PublishPostRequest, Result<P
     public override void Configure()
     {
         Post(PublishPostRequest.Route);
+        Options(x => x.WithTags("Post"));
         AllowAnonymous();
         DontThrowIfValidationFails();
         Summary(x =>

@@ -12,6 +12,7 @@ public class Update(IMediator mediator) : Endpoint<UpdateCategoryRequest, Result
     public override void Configure()
     {
         Put(UpdateCategoryRequest.Route);
+        Options(x => x.WithTags("Category"));
         AllowAnonymous();
         DontThrowIfValidationFails();
         Summary(x =>
