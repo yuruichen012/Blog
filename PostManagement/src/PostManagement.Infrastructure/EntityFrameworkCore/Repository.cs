@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
+using SharedKernel.Events;
 
 namespace PostManagement.Infrastructure.EntityFrameworkCore;
 
@@ -101,7 +102,10 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
 
     public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        foreach (var entry in dbContext.ChangeTracker.Entries<IAggregateRoot>())
+        var entries = dbContext.ChangeTracker.Entries<IAggregateRoot>().ToList();
+
+        // 领域事件发布
+        foreach (var entry in entries)
         {
             var domainEvents = entry.Entity.DomainEvents?.ToList();
             if (domainEvents == null)
@@ -117,7 +121,15 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
             }
         }
 
-        return await dbContext.SaveChangesAsync(cancellationToken);
+        var result = await dbContext.SaveChangesAsync(cancellationToken);
+
+        // 聚合根保存发布
+        foreach (var entry in entries)
+        {
+            await mediator.Publish(AggregateRootSavedEvent.GetNotificationFrom(entry.Entity), cancellationToken);
+        }
+
+        return result;
     }
 
     public virtual Task<T> SingleAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)

@@ -23,7 +23,7 @@ public class PostManagementInfrastructureModule : AutofacModule
 
     private static void RegisterServices(ContainerBuilder builder)
     {
-        builder.RegisterType<CategoryStructuredService>().As<ICategoryStructuredService>().SingleInstance();
+        builder.RegisterType<CategoryTreeService>().AsSelf().As<ICategoryTreeService>().SingleInstance();
     }
 
     private static void RegisterRepositories(ContainerBuilder builder)
