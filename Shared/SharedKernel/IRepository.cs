@@ -5,22 +5,22 @@ namespace SharedKernel;
 /// <summary>
 /// 仓储
 /// </summary>
-public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
+public interface IRepository<TKey, TEntity> where TEntity : Entity<TKey>, IAggregateRoot
 {
     /// <summary>
     /// 添加
     /// </summary>
-    ValueTask AddAsync(T entity, CancellationToken cancellationToken = default);
+    ValueTask AddAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 添加
     /// </summary>
-    ValueTask AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    ValueTask AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 存在
     /// </summary>
-    Task<bool> AnyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取总条数
@@ -30,7 +30,7 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     /// <summary>
     /// 获取总条数
     /// </summary>
-    Task<int> CountAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取总条数
@@ -40,62 +40,62 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     /// <summary>
     /// 获取总条数
     /// </summary>
-    Task<long> LongCountAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<long> LongCountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取第一条
     /// </summary>
-    Task<T> FirstAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取第一条或默认
     /// </summary>
-    Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取实体
     /// </summary>
-    ValueTask<T?> GetAsync(TKey? id, CancellationToken cancellationToken = default);
+    ValueTask<TEntity?> GetAsync(TKey? id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取集合
     /// </summary>
-    Task<List<T>> GetListAsync(CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取集合
     /// </summary>
-    Task<List<TInstanceType>> GetListAsync<TInstanceType>(Expression<Func<T, TInstanceType>> selector, CancellationToken cancellation = default);
+    Task<List<TInstanceType>> GetListAsync<TInstanceType>(Expression<Func<TEntity, TInstanceType>> selector, CancellationToken cancellation = default);
 
     /// <summary>
     /// 获取集合
     /// </summary>
-    Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取集合
     /// </summary>
-    Task<List<TInstanceType>> GetListAsync<TInstanceType>(Expression<Func<T, bool>> predicate, Expression<Func<T, TInstanceType>> selector, CancellationToken cancellation = default);
+    Task<List<TInstanceType>> GetListAsync<TInstanceType>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TInstanceType>> selector, CancellationToken cancellation = default);
 
     /// <summary>
     /// 获取分页数据
     /// </summary>
-    Task<List<T>> GetPagedResultAsync(int skip, int totalCount, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetPagedResultAsync(int skip, int totalCount, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取分页数据
     /// </summary>
-    Task<List<TInstanceType>> GetPagedResultAsync<TInstanceType>(Expression<Func<T, TInstanceType>> selector, int skip, int totalCount, CancellationToken cancellationToken = default);
+    Task<List<TInstanceType>> GetPagedResultAsync<TInstanceType>(Expression<Func<TEntity, TInstanceType>> selector, int skip, int totalCount, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取分页数据
     /// </summary>
-    Task<List<T>> GetPagedResultAsync(Expression<Func<T, bool>> predicate, int skip, int totalCount, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetPagedResultAsync(Expression<Func<TEntity, bool>> predicate, int skip, int totalCount, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取分页数据
     /// </summary>
-    Task<List<TInstanceType>> GetPagedResultAsync<TInstanceType>(Expression<Func<T, bool>> predicate, Expression<Func<T, TInstanceType>> selector, int skip, int totalCount, CancellationToken cancellationToken = default);
+    Task<List<TInstanceType>> GetPagedResultAsync<TInstanceType>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TInstanceType>> selector, int skip, int totalCount, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 保存
@@ -105,20 +105,20 @@ public interface IRepository<TKey, T> where T : Entity<TKey>, IAggregateRoot
     /// <summary>
     /// 获取一条
     /// </summary>
-    Task<T> SingleAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 获取一条或默认
     /// </summary>
-    Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+    Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 更新
     /// </summary>
-    ValueTask UpdateAsync(T entity, CancellationToken cancellationToken = default);
+    ValueTask UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// 更新
     /// </summary>
-    ValueTask UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    ValueTask UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 }

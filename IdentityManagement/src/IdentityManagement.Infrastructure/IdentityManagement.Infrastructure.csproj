@@ -13,8 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\SharedKernel.EntityFrameworkCore\SharedKernel.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\Shared\SharedKernel\SharedKernel.csproj" />
-    <ProjectReference Include="..\PostManagement.Core\PostManagement.Core.csproj" />
-    <ProjectReference Include="..\PostManagement.UseCases\PostManagement.UseCases.csproj" />
+    <ProjectReference Include="..\IdentityManagement.Core\IdentityManagement.Core.csproj" />
+    <ProjectReference Include="..\IdentityManagement.UseCases\IdentityManagement.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

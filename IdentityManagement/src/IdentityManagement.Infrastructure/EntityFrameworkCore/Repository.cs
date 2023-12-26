@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using IdentityManagement.Infrastructure.EntityFrameworkCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 using SharedKernel.Events;
@@ -6,7 +7,7 @@ using SharedKernel.Infrastructure;
 
 namespace PostManagement.Infrastructure.EntityFrameworkCore;
 
-public class Repository<TKey, TEntity>(IMediator mediator, PostManagementDbContext dbContext) : EfCoreRepository<TKey, TEntity, PostManagementDbContext>(dbContext) where TEntity : Entity<TKey>, IAggregateRoot
+public class Repository<TKey, TEntity>(IMediator mediator, IdentityManagementDbContext dbContext) : EfCoreRepository<TKey, TEntity, IdentityManagementDbContext>(dbContext) where TEntity : Entity<TKey>, IAggregateRoot
 {
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
