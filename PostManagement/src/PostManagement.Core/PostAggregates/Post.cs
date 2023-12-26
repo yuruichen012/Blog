@@ -53,8 +53,6 @@ public class Post : Entity<int>, IAggregateRoot
         Author = author;
         Category = category;
         Status = PostStatus.Draft;
-
-        AddDomainEvent(new PostCreatedToDraftDomainEvent(this));
     }
 
     /// <summary>
