@@ -30,8 +30,6 @@ public class Category : Entity<int>, IAggregateRoot
     {
         ParentId = parentId;
         Name = name;
-
-        AddDomainEvent(new CategoryCreatedDomainEvent(this));
     }
 
     /// <summary>

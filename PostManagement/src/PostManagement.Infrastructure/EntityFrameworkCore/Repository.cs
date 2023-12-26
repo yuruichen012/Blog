@@ -102,6 +102,7 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
 
     public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        // 获取存储事件的实体
         var entries = dbContext.ChangeTracker.Entries<IAggregateRoot>().ToList();
 
         // 领域事件发布
@@ -121,10 +122,19 @@ public class Repository<TKey, T>(IMediator mediator, PostManagementDbContext dbC
             }
         }
 
+        // 获取要保存的实体
+        var savingEntries = entries.Where(x => x.State == EntityState.Added).ToList();
+
+        // 聚合根保存中发布
+        foreach (var entry in savingEntries)
+        {
+            await mediator.Publish(AggregateRootSavingEvent.GetNotificationFrom(entry.Entity), cancellationToken);
+        }
+
         var result = await dbContext.SaveChangesAsync(cancellationToken);
 
         // 聚合根保存发布
-        foreach (var entry in entries)
+        foreach (var entry in savingEntries)
         {
             await mediator.Publish(AggregateRootSavedEvent.GetNotificationFrom(entry.Entity), cancellationToken);
         }
